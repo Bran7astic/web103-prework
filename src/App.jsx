@@ -1,10 +1,19 @@
 import './App.css'
-import {BrowserRouter} from 'react-router-dom'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Home from './pages/Home'
+import '@picocss/pico'
+import Layout from './pages/Layout'
+import AddCreator from './pages/AddCreator'
 
 function App() {
   return (
     <BrowserRouter>
-      <p>Hello</p>
+      <Routes>
+        <Route path="/" element={<Layout/>}>
+          <Route index element={<Home/>} />
+          <Route path="add" element={<AddCreator/>}/>
+        </Route>
+      </Routes>
     </BrowserRouter>
   )
 }
