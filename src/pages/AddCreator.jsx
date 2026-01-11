@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react"
 import { supabase } from "../client";
+import { useNavigate } from "react-router";
 
 export default function AddCreator() {
 
     const [name, setName] = useState("");
     const [url, setUrl] = useState("");
     const [desc, setDesc] = useState("");
+
+    const navigate = useNavigate();
 
     const handleUpload = () => {
         const postCreator = async () => {
@@ -23,6 +26,7 @@ export default function AddCreator() {
         
         }
         postCreator()
+        navigate('/'); // Return home after posting
     }
 
     return(
