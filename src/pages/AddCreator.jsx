@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { supabase } from "../client";
 import { useNavigate } from "react-router";
 
-export default function AddCreator() {
+export default function AddCreator({edit=false}) {
 
     const [name, setName] = useState("");
     const [url, setUrl] = useState("");
@@ -31,6 +31,11 @@ export default function AddCreator() {
 
     return(
         <>
+
+            {edit ? (<p>Edit True</p>) 
+                  : (<p>Edit false</p>)
+            }
+
             <form>
                 <fieldset>
                     <label>

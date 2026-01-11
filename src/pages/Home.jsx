@@ -37,6 +37,7 @@ export default function Home() {
                         <CreatorCard
                             name={creator.name}
                             description={creator.description}
+                            uuid={creator.uuid}
                         />
                     ))
                 )
