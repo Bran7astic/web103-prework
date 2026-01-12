@@ -12,6 +12,7 @@ function App() {
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home/>} />
           <Route path="add" element={<AddCreator/>}/>
+          <Route path="edit/:uuid" element={<AddCreator edit/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

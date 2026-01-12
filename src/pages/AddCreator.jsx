@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { supabase } from "../client";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 export default function AddCreator({edit=false}) {
 
@@ -11,6 +11,7 @@ export default function AddCreator({edit=false}) {
     const [desc, setDesc] = useState("");
 
     const navigate = useNavigate();
+    const {uuid} = useParams()
 
     const handleUpload = () => {
         const postCreator = async () => {
@@ -28,6 +29,29 @@ export default function AddCreator({edit=false}) {
         postCreator()
         navigate('/'); // Return home after posting
     }
+
+    const getCreatorById = () => {
+        const getCreator = async () => {
+            const {data, error} = await supabase
+                .from('creators')
+                .select()
+                .eq('uuid', uuid)
+
+            error ? console.error(error) : 
+                setName(data[0].name)
+                setDesc(data[0].desc)
+                setUrl(data[0].url)
+                console.log(data)
+        }
+
+        getCreator()
+    }
+
+    useEffect(() => {
+        if (uuid != null) {
+            getCreatorById()
+        }
+    }, [uuid])
 
     return(
         <>
@@ -58,7 +82,7 @@ export default function AddCreator({edit=false}) {
                         Description
                         <textarea
                             name="Description"
-                            placeholder="Describe this creator!"
+                            placeholder= "Describe this creator!"
                             onChange={(e) => setDesc(e.target.value)}
                         />
                     </label>
