@@ -43,10 +43,25 @@ export default function AddCreator({edit=false}) {
                 })
                 .eq('uuid', uuid)
 
-                error ?? console.error(error)
+                error && console.error(error)
         }
 
         updateCreator()
+        navigate('/')
+    }
+
+    const handleDelete = (event) => {
+        event.preventDefault()
+        const deleteCreator = async () => {
+            const {error} = await supabase
+                .from('creators')
+                .delete()
+                .eq('uuid', uuid)
+
+            error && console.error(error)
+        }
+
+        deleteCreator()
         navigate('/')
     }
 
@@ -116,6 +131,14 @@ export default function AddCreator({edit=false}) {
                     value={edit ? "Update" : "Post"}
                     onClick={edit ? handleUpdate : handleUpload}
                 />
+
+                {edit && (
+                    <input
+                        type="submit"
+                        value="Delete"
+                        onClick={handleDelete}
+                    />
+                )}
             </form>
         </>
     )
