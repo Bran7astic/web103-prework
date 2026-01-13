@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import '@picocss/pico'
 import Layout from './pages/Layout'
 import AddCreator from './pages/AddCreator'
+import ViewCreator from './pages/ViewCreator'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route index element={<Home/>} />
           <Route path="add" element={<AddCreator/>}/>
           <Route path="edit/:uuid" element={<AddCreator edit/>}/>
+          <Route path="view/:uuid" element={<ViewCreator/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

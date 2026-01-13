@@ -17,7 +17,14 @@ export default function CreatorCard({name, description, uuid}) {
             <fieldset role="group">
                 <p>img here</p>
                 <div className="container">
-                    <h4>{name}</h4>
+
+                    <h4 
+                        onClick={()=>{navigate(`/view/${uuid}`)}}
+                        style={{cursor: "pointer"}}
+                    >
+                        {name}
+                    </h4>
+
                     {description}
                 </div>
 
