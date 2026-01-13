@@ -6,14 +6,15 @@ import { useNavigate, useParams } from "react-router";
 
 export default function AddCreator({edit=false}) {
 
-    const [name, setName] = useState("Name");
-    const [url, setUrl] = useState("Link");
-    const [desc, setDesc] = useState("Describe this creator!");
+    const [name, setName] = useState("");
+    const [url, setUrl] = useState("");
+    const [desc, setDesc] = useState("");
 
     const navigate = useNavigate();
     const {uuid} = useParams()
 
-    const handleUpload = () => {
+    const handleUpload = (event) => {
+        event.preventDefault()
         const postCreator = async () => {
             const {data, error} = await supabase
                 .from('creators')
@@ -28,6 +29,25 @@ export default function AddCreator({edit=false}) {
         }
         postCreator()
         navigate('/'); // Return home after posting
+    }
+
+    const handleUpdate = (event) => {
+        event.preventDefault()
+        const updateCreator = async () => {
+            const {error} = await supabase
+                .from('creators')
+                .update({
+                    name: name,
+                    description: desc,
+                    url: url
+                })
+                .eq('uuid', uuid)
+
+                error ?? console.error(error)
+        }
+
+        updateCreator()
+        navigate('/')
     }
 
     const getCreatorById = () => {
@@ -56,9 +76,9 @@ export default function AddCreator({edit=false}) {
     return(
         <>
 
-            {edit ? (<p>Edit True</p>) 
+            {/* {edit ? (<p>Edit True</p>) 
                   : (<p>Edit false</p>)
-            }
+            } */}
 
             <form>
                 <fieldset>
@@ -66,7 +86,8 @@ export default function AddCreator({edit=false}) {
                         Name
                         <input
                             name="Name"
-                            placeholder={name}
+                            value={name}
+                            placeholder={"Name"}
                             onChange={(e) => setName(e.target.value)}
                         />
                     </label>
@@ -74,7 +95,8 @@ export default function AddCreator({edit=false}) {
                         Link
                         <input
                             name="Link"
-                            placeholder={url}
+                            value={url}
+                            placeholder={"Link"}
                             onChange={(e) => setUrl(e.target.value)}
                         />
                     </label>
@@ -82,7 +104,8 @@ export default function AddCreator({edit=false}) {
                         Description
                         <textarea
                             name="Description"
-                            placeholder={desc}
+                            value={desc}
+                            placeholder={"Describe this creator!"}
                             onChange={(e) => setDesc(e.target.value)}
                         />
                     </label>
@@ -90,8 +113,8 @@ export default function AddCreator({edit=false}) {
 
                 <input
                     type="submit"
-                    value="Post"
-                    onClick={handleUpload}
+                    value={edit ? "Update" : "Post"}
+                    onClick={edit ? handleUpdate : handleUpload}
                 />
             </form>
         </>
