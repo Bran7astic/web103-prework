@@ -6,9 +6,9 @@ import { useNavigate, useParams } from "react-router";
 
 export default function AddCreator({edit=false}) {
 
-    const [name, setName] = useState("");
-    const [url, setUrl] = useState("");
-    const [desc, setDesc] = useState("");
+    const [name, setName] = useState("Name");
+    const [url, setUrl] = useState("Link");
+    const [desc, setDesc] = useState("Describe this creator!");
 
     const navigate = useNavigate();
     const {uuid} = useParams()
@@ -39,7 +39,7 @@ export default function AddCreator({edit=false}) {
 
             error ? console.error(error) : 
                 setName(data[0].name)
-                setDesc(data[0].desc)
+                setDesc(data[0].description)
                 setUrl(data[0].url)
                 console.log(data)
         }
@@ -66,7 +66,7 @@ export default function AddCreator({edit=false}) {
                         Name
                         <input
                             name="Name"
-                            placeholder="Name"
+                            placeholder={name}
                             onChange={(e) => setName(e.target.value)}
                         />
                     </label>
@@ -74,7 +74,7 @@ export default function AddCreator({edit=false}) {
                         Link
                         <input
                             name="Link"
-                            placeholder="Link"
+                            placeholder={url}
                             onChange={(e) => setUrl(e.target.value)}
                         />
                     </label>
@@ -82,7 +82,7 @@ export default function AddCreator({edit=false}) {
                         Description
                         <textarea
                             name="Description"
-                            placeholder= "Describe this creator!"
+                            placeholder={desc}
                             onChange={(e) => setDesc(e.target.value)}
                         />
                     </label>
