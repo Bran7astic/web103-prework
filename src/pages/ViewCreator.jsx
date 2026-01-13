@@ -39,6 +39,7 @@ export default function ViewCreator() {
             <div>
                 <a 
                     href={url} 
+                    data-tooltip={url}
                     style={{display: "flex",
                         alignItems: "center", 
                         justifyContent: "center", 
