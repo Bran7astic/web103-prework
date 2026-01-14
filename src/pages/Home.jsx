@@ -29,19 +29,29 @@ export default function Home() {
         <>
             <h1>SubHub</h1>
             <p>SubHub is a platform meant to promote a wide variety of content creators!</p>
-            {
-                !creators ? (
-                    <article aria-busy="true"></article>
-                ) : (
-                    creators.map((creator) => (
-                        <CreatorCard
+            <div
+                style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "5%",
+                }}
+            >
+                {
+                    !creators ? (
+                        <article aria-busy="true"></article>
+                    ) : (
+                        creators.map((creator) => (
+                            <CreatorCard
+                            key={creator.uuid}
                             name={creator.name}
                             description={creator.description}
                             uuid={creator.uuid}
-                        />
-                    ))
-                )
-            }
+                            image={creator.imageURL}
+                            />
+                        ))
+                    )
+                }
+            </div>
         </>
     )
 }

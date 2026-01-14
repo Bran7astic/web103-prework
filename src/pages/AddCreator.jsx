@@ -8,6 +8,7 @@ export default function AddCreator({edit=false}) {
 
     const [name, setName] = useState("");
     const [url, setUrl] = useState("");
+    const [image, setImage] = useState("");
     const [desc, setDesc] = useState("");
 
     const navigate = useNavigate();
@@ -21,7 +22,8 @@ export default function AddCreator({edit=false}) {
                 .insert({
                     name: name,
                     description: desc,
-                    url: url
+                    url: url,
+                    imageURL: image
                 })
 
             error ? console.error(error) : console.log(data)
@@ -39,7 +41,8 @@ export default function AddCreator({edit=false}) {
                 .update({
                     name: name,
                     description: desc,
-                    url: url
+                    url: url,
+                    imageURL: image,
                 })
                 .eq('uuid', uuid)
 
@@ -76,6 +79,7 @@ export default function AddCreator({edit=false}) {
                 setName(data[0].name)
                 setDesc(data[0].description)
                 setUrl(data[0].url)
+                setImage(data[0].imageURL)
                 console.log(data)
         }
 
@@ -91,9 +95,9 @@ export default function AddCreator({edit=false}) {
     return(
         <>
 
-            {/* {edit ? (<p>Edit True</p>) 
-                  : (<p>Edit false</p>)
-            } */}
+            {edit ? (<h5>Edit Creator</h5>) 
+                  : (<h5>Add Creator</h5>)
+            }
 
             <form>
                 <fieldset>
@@ -113,6 +117,15 @@ export default function AddCreator({edit=false}) {
                             value={url}
                             placeholder={"Link"}
                             onChange={(e) => setUrl(e.target.value)}
+                        />
+                    </label>
+                    <label>
+                        Image Link
+                        <input
+                            name="Image Link"
+                            value={image}
+                            placeholder={"Image Link"}
+                            onChange={(e) => setImage(e.target.value)}
                         />
                     </label>
                     <label>
@@ -137,6 +150,7 @@ export default function AddCreator({edit=false}) {
                         type="submit"
                         value="Delete"
                         onClick={handleDelete}
+                        backgroundColor="red"
                     />
                 )}
             </form>

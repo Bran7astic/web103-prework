@@ -10,6 +10,7 @@ export default function ViewCreator() {
     const [name, setName] = useState("")
     const [url, setUrl] = useState("")
     const [desc, setDesc] = useState("")
+    const [image, setImage] = useState("")
     const {uuid} = useParams()
 
     useEffect(() =>{
@@ -25,6 +26,7 @@ export default function ViewCreator() {
             setName(data[0].name)
             setDesc(data[0].description)
             setUrl(data[0].url)
+            setImage(data[0].imageURL)
             console.log(data)
         }
 
@@ -52,6 +54,17 @@ export default function ViewCreator() {
                 </a>
             </div>
             
+            {image && 
+                <img 
+                src={image} 
+                style={{
+                    width: "20em",
+                    borderRadius: "20px",
+                    margin: "2em",
+                }}
+                />
+            }
+
             <hr/>
             <p>{desc}</p>
         </>
